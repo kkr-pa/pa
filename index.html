@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Arcadia - Edtech for Real Classrooms</title>
+  <meta name="description" content="Edtech built by engineers with 25+ years combined classroom experience.">
+  
+  <!-- Open Graph for social shares -->
+  <meta property="og:title" content="Project Arcadia">
+  <meta property="og:description" content="Edtech that actually works.">
+   <!-- 
+  <meta property="og:image" content="https://via.placeholder.com/1200x630/667eea/ffffff?text=Logo">
+   -->
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 2rem; background: #fafafa; }
+    header { text-align: center; padding: 1rem 0 1rem; }
+    h1 { 
+    font-size: 3rem; 
+    font-weight: 800; 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    margin-bottom: 0.2rem; 
+    }
+    .subtitle { font-size: 1.25rem; margin-bottom: 1rem; opacity: 0.9; }
+    .problem { text-align: center; padding: 1.4rem 0 2rem; }
+    .problem h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .cta { background: white; padding: 2.4rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 400px; margin: 2rem auto; text-align: center; }
+    .cta-button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: transform 0.2s; }
+    .cta-button:hover { transform: translateY(-2px); }
+   #pause-button {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Pause icon while rotation is playing */
+    #pause-button:not(.is-paused)::before {
+      content: "";
+      width: 0.7rem;
+      height: 0.9rem;
+      border-left: 0.2rem solid currentColor;
+      border-right: 0.2rem solid currentColor;
+      box-sizing: border-box;
+    }
+    
+    /* Play icon while rotation is paused */
+    #pause-button.is-paused::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 0.45rem solid transparent;
+      border-bottom: 0.45rem solid transparent;
+      border-left: 0.7rem solid currentColor;
+      transform: translateX(0.08rem);
+    }
+
+    #pause-button:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .bio { text-align: center; margin: 0.8rem 0 2rem; font-size: 1.1rem; line-height: 1.5; }
+    .bio strong { color: #333; }
+    .bio h3 {
+      margin-top: 1em;
+      margin-bottom: 0.2em;
+    }
+    footer { text-align: center; padding: 2rem 0; border-top: 1px solid #eee; color: #666; font-size: 0.9rem; }
+    @media (max-width: 600px) { body { padding: 1rem; } h1 { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <header>
+    <h1>Project Arcadia</h1>
+    <p class="subtitle">Actionable Intelligence for Better Learning & Teaching.</p>
+  </header>
+  
+  
+  
+  <!-- Problem -->
+  <section class="problem" id="rotator">
+    <h2>We're more than a quarter-century into the 21<sup>st</sup> century and still ...</h2>    
+  
+    <h2
+      id="rotating-text"
+      style="min-height: 5em; line-height: 1.2; color: brown;"
+    ></h2>
+
+    <button id="pause-button" type="button" aria-label="Pause rotation"></button>
+
+    <p style="font-size: 1.2rem; opacity: 0.9; font-weight: bold; color: green; margin-top: 3rem;">
+      Our assessment platform is the fix.
+    </p>
+  </section>
+
+<script>
+const texts = [
+  "... teachers spend an inordinate amount of time scoring descriptive answers.",
+  "... scores totaling and recording are manual, tedious, error-prone.",
+  "... tests and exams don't deliver the detailed topic mastery data teachers need.",
+  "... students lack clear peer comparison insights.",
+  "... students can't routinely learn from the best of their peers."
+];
+
+let i = 0;
+let timer;
+let paused = false;
+
+const el = document.getElementById("rotating-text");
+const button = document.getElementById("pause-button");
+
+el.style.transition = "opacity 320ms ease";
+el.textContent = texts[0];
+
+function startRotation() {
+  timer = setInterval(() => {
+    el.style.opacity = 0;
+
+    setTimeout(() => {
+      if (paused) return;
+
+      i = (i + 1) % texts.length;
+      el.textContent = texts[i];
+      el.style.opacity = 1;
+    }, 320);
+  }, 5400);
+}
+
+button.addEventListener("click", () => {
+  paused = !paused;
+
+  if (paused) {
+    clearInterval(timer);
+    button.classList.add("is-paused");
+    button.setAttribute("aria-label", "Play rotation");
+    el.style.opacity = 1;
+  } else {
+    button.classList.remove("is-paused");
+    button.setAttribute("aria-label", "Pause rotation");
+    startRotation();
+  }
+});
+
+startRotation();
+
+</script>
+
+  <!-- Project -->
+<div class="bio">
+
+  <p class="tagline"><em>Students write on paper as usual.<br>
+  Teachers assign scores onscreen.</em></p>
+
+  <h3>Minimal technology required</h3> Teachers need access to a computer, a printer and a scanner.<br> Students need access (post-test only) to a computer, tablet or cellphone.</p>
+
+  <h3>For teachers</h3>
+  <p>Assign scores question by question <small><i>(shown in video)</i></small>, quickly, consistently. Get question-wise performance analytics <small><i>(shown in video)</i></small>, automated scores totals and error-free transfer to supported electronic gradebooks.</p>
+
+  <h3>For students</h3>
+  <p>See their performance alongside their peers <small><i>(shown in video)</i></small> and learn from classmates' answers.</p>
+
+  <h3>For parents</h3>
+  <p>Parents and their student can read, discuss, and learn from anonymous model answers selected by the teacher from classmates' responses.</p>
+
+  <h3>Who it's for</h3>
+  <p>In our experience, students do better when teachers resist the urge to jump in the moment a student meets difficulty. Teachers make room for curiosity, conversation, struggle, even frustration and intervene only if sustained effort still leaves unanswered questions. This way, students have the opportunity to grow into independent, self-regulated learners.</p><br>
+  <p>Not every school will agree with this approach.<br> Our platform is built for those that do.</p>
+
+  <h3>How it works</h3>
+  <script src="https://fast.wistia.com/player.js" async></script><script src="https://fast.wistia.com/embed/b9ry0b00vz.js" async type="module"></script><style>wistia-player[media-id='b9ry0b00vz']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/b9ry0b00vz/swatch'); display: block; filter: blur(5px); padding-top:75.0%; }</style> <wistia-player media-id="b9ry0b00vz" aspect="1.3333333333333333"></wistia-player>
+ 
+  <h3>Free trial</h3>
+  <p>Contact us and we'll sort out the details together.</p>
+  
+</div>
+
+  <!--
+  <div class="cta">
+    <h3 style="margin-bottom: 1rem;">Ready to test-drive it?</h3>
+    <a href="https://projectarcadia.short.gy/calendly" class="cta-button">Book 30-min demo</a>
+  </div>
+  -->
+  
+  <!-- Bio -->
+  <div class="bio">
+    <p><strong>Team Lead:</strong> K K Reddy, B.Tech., IIT Madras, M.S.E., The University of Texas at Austin<br>
+    Team with 25+ years combined classroom experience.</p>
+  </div>
+
+
+  <!-- Contact Section Start -->
+<div id="contact-section" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+  <h3>Contact Us</h3>
+  
+  <!-- Success/Error Messages -->
+  <div id="status-msg" style="margin-top: 10px; font-weight: bold; padding: 10px; border-radius: 4px; display: none;"></div>
+
+  <form id="my-form" novalidate style="width: 100%; max-width: 500px; margin: 0 auto;">
+    
+    <div style="margin-bottom: 15px; text-align: left; margin-top: 20px;">
+      <label for="email" style="display: block; margin-bottom: 5px; font-weight: bold;">Your Email</label>
+      <input type="email" id="email" name="email" required 
+             placeholder="you@example.com"
+             style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+    </div>
+
+    <div style="margin-bottom: 15px; text-align: left;">
+      <label for="message" style="display: block; margin-bottom: 5px; font-weight: bold;">Message</label>
+      <textarea id="message" name="message" rows="5" required
+                placeholder="How can we help you?"
+                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"></textarea>
+    </div>
+
+      <!-- Cloudflare Turnstile Widget -->
+  <div class="cf-turnstile" 
+       data-sitekey="0x4AAAAAADpfJCAvXsPeefNB" 
+       data-callback="turnstileSuccessCallback"
+       data-theme="light">
+  </div>
+  
+  <!-- Turnstile Error Message (Fixed Spacing) -->
+  <div id="turnstile-error" style="color: #dc3545; font-size: 0.9em; display: none; margin-top: 2px; margin-bottom: 15px;">
+    Please complete the security check.<br><br>
+  </div>
+
+    <!-- Submit Button (Initially Disabled) -->
+    <button type="submit" 
+            class="cta-button"
+            id="send-btn"
+            disabled
+            style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border-radius: 8px; font-weight: 600; transition: transform 0.2s 0.1s, opacity 0.2s; border: none; cursor: pointer; font-size: 16px; width: 100%; max-width: 300px; opacity: 0.6; pointer-events: none;">
+      Send Message
+    </button>
+  </form>
+</div>
+
+<!-- Cloudflare Turnstile Script -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<!-- JavaScript Logic -->
+<script>
+  let turnstileToken = null;
+  const emailInput = document.getElementById('email');
+  const messageInput = document.getElementById('message');
+  const sendBtn = document.getElementById('send-btn');
+  const statusMsg = document.getElementById('status-msg');
+  const turnstileError = document.getElementById('turnstile-error');
+
+  // Function to check if all conditions are met
+  function validateForm() {
+    const hasEmail = emailInput.value.trim().length > 0 && emailInput.checkValidity();
+    const hasMessage = messageInput.value.trim().length > 0;
+    const hasTurnstile = !!turnstileToken;
+
+    if (hasEmail && hasMessage && hasTurnstile) {
+      // Enable button
+      sendBtn.disabled = false;
+      sendBtn.style.opacity = '1';
+      sendBtn.style.pointerEvents = 'auto';
+      sendBtn.style.cursor = 'pointer';
+    } else {
+      // Disable button
+      sendBtn.disabled = true;
+      sendBtn.style.opacity = '0.6';
+      sendBtn.style.pointerEvents = 'none';
+      sendBtn.style.cursor = 'not-allowed';
+    }
+  }
+
+  // Listen for Turnstile success
+  function turnstileSuccessCallback(token) {
+    console.log("✅ Turnstile verified.");
+    turnstileToken = token;
+    turnstileError.style.display = 'none';
+    validateForm(); // Re-check validity
+  }
+
+  // Listen for input changes
+  emailInput.addEventListener('input', validateForm);
+  messageInput.addEventListener('input', validateForm);
+
+  // Handle Form Submission
+  sendBtn.parentElement.addEventListener('submit', async function(e) {
+    e.preventDefault(); // Stop reload
+
+    // Double validation safety check
+    if (!turnstileToken || !emailInput.value.trim() || !messageInput.value.trim()) {
+      turnstileError.style.display = 'block';
+      turnstileError.innerHTML = "Please complete the verification and fill out all fields.<br><br>";
+      return;
+    }
+
+    // Visual Feedback
+    sendBtn.disabled = true;
+    const originalText = sendBtn.innerText;
+    sendBtn.innerText = 'Sending...';
+    sendBtn.style.opacity = '0.7';
+    statusMsg.style.display = 'none';
+
+    const formData = new FormData(this);
+    formData.append('cf-turnstile-response', turnstileToken);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xrewbgqg', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        statusMsg.style.display = 'block';
+        statusMsg.style.backgroundColor = '#d4edda';
+        statusMsg.style.color = '#155724';
+        statusMsg.innerHTML = "<strong>Thank you!</strong> We'll respond shortly.";
+        
+        // Reset form
+        this.reset();
+        turnstileToken = null;
+        if (window.turnstile) window.turnstile.reset();
+        validateForm(); // Disable button again
+        
+        console.log("✅ Submission successful:", data);
+      } else {
+        statusMsg.style.display = 'block';
+        statusMsg.style.backgroundColor = '#f8d7da';
+        statusMsg.style.color = '#721c24';
+        statusMsg.innerHTML = "<strong>Error:</strong> " + (data.errors ? data.errors[0].message : "Something went wrong.");
+        console.error("❌ Formspree Error:", data);
+      }
+    } catch (err) {
+      statusMsg.style.display = 'block';
+      statusMsg.style.backgroundColor = '#f8d7da';
+      statusMsg.style.color = '#721c24';
+      statusMsg.innerText = "Network Error. Please try again.";
+      console.error("❌ Fetch Error:", err);
+    } finally {
+      // If there was an error but not client-side, re-enable button if fields are still full
+      if (!turnstileError.style.display === 'none') {
+          validateForm(); 
+      }
+      sendBtn.innerText = originalText;
+      sendBtn.style.opacity = '1'; // Reset opacity unless disabled by logic
+      if(sendBtn.disabled) sendBtn.style.opacity = '0.6';
+    }
+  });
+
+  // Initial validation run in case fields were pre-filled
+  validateForm();
+</script>
+  
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024-2026 Project Arcadia | Salt Lake City, USA | Visakhapatnam, India | All rights reserved.</p>
+  </footer>
+</body>
+</html>
